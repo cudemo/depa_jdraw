@@ -4,10 +4,8 @@
  */
 package jdraw.std;
 
-import jdraw.figures.Group;
-import jdraw.figures.OvalTool;
-import jdraw.figures.PolygonTool;
-import jdraw.figures.RectTool;
+import jdraw.decorator.BorderDecorator;
+import jdraw.figures.*;
 import jdraw.framework.*;
 
 import javax.swing.*;
@@ -29,7 +27,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("serial")
 public class StdContext extends AbstractContext {
 
-    private List<Figure> clipboard ;
+    private List<Figure> clipboard;
 
     /**
      * Constructs a standard context with a default set of drawing tools.
@@ -177,6 +175,22 @@ public class StdContext extends AbstractContext {
         grid.add("Grid 3");
         editMenu.add(grid);
 
+
+        JMenu decsMenu = new JMenu("Decorators...");
+        editMenu.add(decsMenu);
+        JMenuItem addBorder = new JMenuItem("Add Border Decorator");
+        decsMenu.add(addBorder);
+        addBorder.addActionListener(e -> {
+            List<Figure> s = getView().getSelection();
+            getView().clearSelection();
+            for (Figure f : s) {
+                BorderDecorator dec = new BorderDecorator(f);
+                getModel().removeFigure(f);
+                getModel().addFigure(dec);
+                getView().addToSelection(dec);
+            }
+        });
+
         return editMenu;
     }
 
@@ -213,6 +227,8 @@ public class StdContext extends AbstractContext {
         addTool(ovalTool);
         DrawTool polyTool = new PolygonTool(this, "Polygon", "polygon.png");
         addTool(polyTool);
+        DrawTool lassoTool = new LassoTool(this, "Lasso", "lasso.png");
+        addTool(lassoTool);
     }
 
     /**

@@ -13,11 +13,11 @@ import java.util.List;
 
 public abstract class AbstractRectangularFigure implements Figure {
 
+    private final List<FigureListener> fl;
     /**
      * Use the java.awt.Rectangle in order to save/reuse code.
      */
     protected Rectangle rectangle;
-    private final List<FigureListener> fl;
     private List<FigureHandle> handles;
 
     public AbstractRectangularFigure() {
@@ -92,7 +92,7 @@ public abstract class AbstractRectangularFigure implements Figure {
     @Override
     public Figure clone() {
 
-return null;
+        return null;
 
     }
 }
