@@ -81,7 +81,7 @@ public class StdDrawModel implements DrawModel {
 
     @Override
     public void removeModelChangeListener(DrawModelListener listener) {
-        if (listener != null && listeners.contains(listener)) {
+        if (listener != null) {
 
             listeners.remove(listener);
 
